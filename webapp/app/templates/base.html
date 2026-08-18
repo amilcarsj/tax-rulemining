@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}taxonomy feature explorer{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="{{ url_for('explorer.index', dataset=selected_dataset) }}">
+        <span class="brand-mark">TR</span>
+        <span>tax-rulemining <small>feature explorer</small></span>
+      </a>
+      {% if datasets %}
+      <nav aria-label="Dataset navigation">
+        {% for dataset in datasets %}
+        <a class="dataset-link {% if dataset == selected_dataset %}is-active{% endif %}"
+           href="{{ url_for('explorer.index', dataset=dataset) }}">{{ dataset }}</a>
+        {% endfor %}
+      </nav>
+      {% endif %}
+    </header>
+    <main class="page-shell">
+      {% block content %}{% endblock %}
+    </main>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

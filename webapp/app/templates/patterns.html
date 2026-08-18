@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Patterns x {{ selected_dataset }}{% endblock %}
+{% block content %}
+<section class="hero compact">
+  <div>
+    <p class="eyebrow">Step 2 compressed output</p>
+    <h1>Semantic meta-patterns</h1>
+    <p class="lede">The raw FP-growth rules are compressed into node-level uncommonness-count patterns, making the result set smaller and easier to inspect.</p>
+  </div>
+</section>
+
+<section class="filter-bar panel" data-pattern-filter>
+  <label>Search <input type="search" placeholder="Pattern, node, or ID" data-pattern-search></label>
+  <label>Node <select data-node-filter><option value="">All nodes</option>{% for node in nodes %}<option value="{{ node }}">{{ node }}</option>{% endfor %}</select></label>
+  <label>Minimum coverage <input type="range" min="0" max="25" value="0" step="1" data-coverage-filter><output data-coverage-output>0%</output></label>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">{{ patterns|length }} meta-patterns</p><h2>Evidence-ranked catalogue</h2></div>
+    <span class="help">Ordered by source-rule strength, coverage, and compression value.</span>
+  </div>
+  <div class="table-wrap">
+    <table class="pattern-table">
+      <thead>
+        <tr><th>Pattern</th><th>Target trajectories</th><th>Coverage</th><th>Source rules</th><th>Mean confidence</th><th>Mean lift</th></tr>
+      </thead>
+      <tbody>
+        {% for pattern in patterns %}
+        <tr data-pattern-row data-search="{{ pattern.meta_pattern_id }} {{ pattern.readable_pattern }} {{ pattern.nodes }}" data-nodes="{{ pattern.display_nodes|join(';') }}" data-coverage="{{ pattern.coverage_pct }}">
+          <td>
+            <a href="{{ url_for('explorer.pattern_detail', dataset=selected_dataset, meta_pattern_id=pattern.meta_pattern_id) }}">
+              <small>{{ pattern.meta_pattern_id }}</small>{{ pattern.readable_pattern }}
+            </a>
+            {% if pattern.retained_comparison_text %}<p>{{ pattern.retained_comparison_text }}</p>{% endif %}
+          </td>
+          <td>{{ pattern.n_covered_value }}</td>
+          <td>{{ "%.2f"|format(pattern.coverage_pct) }}%</td>
+          <td>{{ pattern.n_source_rules_value }}</td>
+          <td>{{ "%.1f"|format(pattern.mean_confidence_pct) }}%</td>
+          <td>{{ "%.1f"|format(pattern.mean_lift_value) }}x</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="empty-filter-message" hidden>No meta-patterns match those filters.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block title %}{{ detail.pattern.meta_pattern_id }} x {{ selected_dataset }}{% endblock %}
+{% block content %}
+{% macro median_chart(feature) -%}
+  <div class="median-chart">
+    <div class="median-row">
+      <span>Target</span>
+      <div class="median-track"><i class="target" style="--bar-size: {{ feature.covered_median_pct }}%"></i></div>
+      <strong>{{ feature.covered_median_label }}</strong>
+    </div>
+    <div class="median-row">
+      <span>Contrast</span>
+      <div class="median-track"><i class="contrast" style="--bar-size: {{ feature.contrast_median_pct }}%"></i></div>
+      <strong>{{ feature.contrast_median_label }}</strong>
+    </div>
+  </div>
+{%- endmacro %}
+
+<p class="breadcrumb"><a href="{{ url_for('explorer.patterns', dataset=selected_dataset) }}">All {{ selected_dataset }} patterns</a> <span>/</span> {{ detail.pattern.meta_pattern_id }}</p>
+
+<section class="pattern-hero">
+  <div>
+    <p class="eyebrow">{{ detail.pattern.meta_pattern_id }} x semantic meta-pattern</p>
+    <h1>{{ detail.pattern.readable_pattern }}</h1>
+    <p class="lede">Feature contrasts below compare trajectories that satisfy this meta-pattern against three interpretable opposite-example sets: near miss, matched non-pattern, and typical normal.</p>
+    <div class="retained-comparison-list">
+      {% for summary in detail.retained_comparison_summaries %}
+      <p><strong>{{ summary.node_display }}</strong> must be uncommon in at least {{ summary.required_count }} retained comparison{% if summary.required_count != 1 %}s{% endif %}. Retained nodes: {{ summary.retained_node_text }}. Retained comparisons: {{ summary.comparison_text }}.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="metric-grid rule-metrics">
+  <article class="metric-card"><span>Target trajectories</span><strong>{{ detail.pattern.n_covered_value }}</strong><small>{{ "%.2f"|format(detail.pattern.coverage_pct) }}% of dataset</small></article>
+  <article class="metric-card"><span>Source rules</span><strong>{{ detail.pattern.n_source_rules_value }}</strong><small>raw rules compressed</small></article>
+  <article class="metric-card"><span>Mean confidence</span><strong>{{ "%.1f"|format(detail.pattern.mean_confidence_pct) }}%</strong><small>across source rules</small></article>
+  <article class="metric-card"><span>Mean lift</span><strong>{{ "%.1f"|format(detail.pattern.mean_lift_value) }}x</strong><small>over target base rates</small></article>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">Groups compared in Step 3</p><h2>Target trajectories and contrast sets</h2></div>
+  </div>
+  <div class="contrast-card-grid">
+    {% for group in detail.group_cards %}
+    <article class="contrast-card {{ group.name }}">
+      <span>{{ group.label }}</span>
+      <strong>{{ group.n_trajectories }}</strong>
+      <small>{{ "%.2f"|format(group.ratio_pct) }}% of trajectories</small>
+      <p>{{ group.description }}</p>
+      {% if group.selection_reason %}<em>{{ group.selection_reason.replace('_', ' ') }}</em>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">Feature-level evidence</p><h2>Largest taxonomy-organized differences by contrast set</h2></div>
+    <span class="help">Raw target and contrast medians, sorted by absolute raw median difference.</span>
+  </div>
+  <div class="contrast-feature-grid">
+    {% for contrast in detail.top_features_by_contrast %}
+    <article class="contrast-feature-card {{ contrast.name }}">
+      <h3>{{ contrast.label }}</h3>
+      <p>{{ contrast.description }}</p>
+      <div class="table-wrap">
+        <table class="feature-difference-table">
+          <thead><tr><th>Node</th><th>Feature</th><th>Raw values</th></tr></thead>
+          <tbody>
+            {% for feature in contrast.features %}
+            <tr>
+              <td>{{ feature.node_display }}</td>
+              <td><strong>{{ feature.feature }}</strong></td>
+              <td>
+                <div class="raw-value-stack">
+                  <span><strong>Target median</strong> {{ feature.covered_median_label }}</span>
+                  <span><strong>Contrast median</strong> {{ feature.contrast_median_label }}</span>
+                  <span class="raw-delta {% if feature.signed_difference_value >= 0 %}positive{% else %}negative{% endif %}"><strong>Delta</strong> {{ feature.raw_difference_label }}</span>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="taxonomy-feature-layout">
+  {% for group in detail.taxonomy_groups %}
+  <article class="panel taxonomy-feature-card">
+    <div class="section-heading">
+      <div><p class="eyebrow">Taxonomy node</p><h2>{{ group.display_name }}</h2></div>
+      <span class="feature-count">{{ group.n_features }} features</span>
+    </div>
+
+    {% for contrast in group.contrast_groups %}
+    <details class="contrast-detail-block {{ contrast.name }}" {% if loop.first %}open{% endif %}>
+      <summary><span>{{ contrast.label }}</span><small>{{ contrast.description }}</small></summary>
+      <div class="comparison-evidence">
+        <h3>Comparison evidence</h3>
+        {% for row in contrast.comparisons %}
+        <div class="comparison-row">
+          <div>
+            <strong>{{ row.pair_display }}</strong>
+            <small>{{ row.covered_uncommon_count }} target vs {{ row.contrast_uncommon_count }} {{ contrast.label|lower }} trajectories labelled uncommon for this node</small>
+          </div>
+          <div class="ratio-bars">
+            <span>Target {{ "%.1f"|format(row.covered_ratio_pct) }}%</span>
+            <div class="track slim"><span class="fill target" style="--bar-size: {{ row.covered_ratio_pct }}%"></span></div>
+            <span>{{ contrast.label }} {{ "%.1f"|format(row.contrast_ratio_pct) }}%</span>
+            <div class="track slim"><span class="fill contrast" style="--bar-size: {{ row.contrast_ratio_pct }}%"></span></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="feature-bars">
+        <h3>Feature differences</h3>
+        {% for feature in contrast.top_features %}
+        <div class="feature-bar-row">
+          <div class="feature-name">
+            <strong>{{ feature.feature }}</strong>
+          </div>
+          {{ median_chart(feature) }}
+          <strong class="bar-value raw-difference {% if feature.signed_difference_value >= 0 %}positive{% else %}negative{% endif %}">{{ feature.raw_difference_label }}</strong>
+        </div>
+        {% endfor %}
+      </div>
+    </details>
+    {% endfor %}
+  </article>
+  {% endfor %}
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">Traceability</p><h2>Source rules compressed into this meta-pattern</h2></div>
+    <span class="help">The compact pattern remains linked to the exact FP-growth rules.</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rule</th><th>Rule description</th><th>Support</th><th>Confidence</th><th>Lift</th><th>Target comparison</th></tr></thead>
+      <tbody>
+        {% for rule in detail.source_rules %}
+        <tr>
+          <td><strong>{{ rule.rule_id }}</strong></td>
+          <td>{{ rule.readable_rule }}</td>
+          <td>{{ rule.support_count }}</td>
+          <td>{{ "%.1f"|format(rule.confidence_pct) }}%</td>
+          <td>{{ "%.1f"|format(rule.lift_value) }}x</td>
+          <td><small>{{ rule.target_comparison_display }}</small></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

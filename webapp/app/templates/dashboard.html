@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}{{ dashboard.dataset }} x taxonomy feature explorer{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Semantic meta-pattern overview</p>
+    <h1>{{ dashboard.dataset | capitalize }}</h1>
+    <p class="lede">Explore compact taxonomy-level uncommonness patterns, then inspect which feature groups separate target trajectories from interpretable contrast sets.</p>
+  </div>
+  <a class="button primary" href="{{ url_for('explorer.patterns', dataset=dashboard.dataset) }}">Explore {{ dashboard.step2.results.semantic_meta_pattern_count }} patterns</a>
+</section>
+
+<section class="metric-grid" aria-label="Pipeline summary">
+  <article class="metric-card"><span>Trajectories</span><strong>{{ dashboard.step1.dataset.row_count }}</strong><small>original feature table</small></article>
+  <article class="metric-card"><span>Taxonomy nodes</span><strong>{{ dashboard.step1.results.usable_node_count }}</strong><small>LOF-scored feature groups</small></article>
+  <article class="metric-card"><span>Top-node pairs</span><strong>{{ dashboard.step2.dataset.retained_same_depth_pair_count }}</strong><small>used by semantic mining</small></article>
+  <article class="metric-card"><span>Meta-patterns</span><strong>{{ dashboard.step2.results.semantic_meta_pattern_count }}</strong><small>{{ dashboard.step2.results.rule_count }} source rules compressed</small></article>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">Taxonomy V2</p><h2>Top-level feature groups</h2></div>
+    <span class="help">Patterns are mined over these depth-1 nodes.</span>
+  </div>
+  <div class="node-card-grid">
+    {% for node in dashboard.top_node_cards %}
+    <article class="node-card">
+      <span>{{ node.display_name }}</span>
+      <strong>{{ node.n_features }}</strong>
+      <small>features · {{ node.n_patterns }} patterns</small>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="two-column">
+  <article class="panel">
+    <div class="section-heading">
+      <div><p class="eyebrow">Pseudo-label composition</p><h2>How the pairwise labels distribute</h2></div>
+    </div>
+    <div class="composition-chart">
+      {% for label in dashboard.labels %}
+      <div class="composition-row">
+        <div class="composition-label"><span>{{ label.label }}</span><strong>{{ "%.1f"|format(label.share_pct) }}%</strong></div>
+        <div class="track"><span class="fill {{ label.label | lower }}" style="--bar-size: {{ label.share_pct }}%"></span></div>
+        <small>{{ label.count }} retained pair observations</small>
+      </div>
+      {% endfor %}
+    </div>
+  </article>
+  <article class="panel">
+    <div class="section-heading">
+      <div><p class="eyebrow">Reading the new Step 3</p><h2>Target vs contrast sets</h2></div>
+    </div>
+    <p>The target group contains trajectories that satisfy a semantic meta-pattern, such as <strong>Turning Dynamics uncommon in at least 2 comparisons</strong>.</p>
+    <p>Instead of using the whole remaining dataset as a single opposite group, Step 3 now builds three contrast sets: near misses, matched non-pattern trajectories, and typical-normal references.</p>
+  </article>
+</section>
+
+{% macro taxonomy_node(node) -%}
+  <li class="taxonomy-tree-item">
+    {% if node.children %}
+    <details class="taxonomy-node" {% if node.depth < 2 %}open{% endif %}>
+      <summary><span class="taxonomy-node-name">{{ node.display_name }}</span><span class="feature-count">{{ node.n_features }} features</span></summary>
+      <ul>
+        {% for child in node.children %}{{ taxonomy_node(child) }}{% endfor %}
+      </ul>
+    </details>
+    {% else %}
+    <div class="taxonomy-leaf"><span class="taxonomy-node-name">{{ node.display_name }}</span><span class="feature-count">{{ node.n_features }} features</span></div>
+    {% endif %}
+  </li>
+{%- endmacro %}
+
+<section class="panel taxonomy-panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">Feature organization</p><h2>Taxonomy tree</h2></div>
+    <span class="help">Expand nodes to inspect how features are organized before pattern explanation.</span>
+  </div>
+  <ul class="taxonomy-tree">
+    {% for root in dashboard.taxonomy_tree %}{{ taxonomy_node(root) }}{% endfor %}
+  </ul>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <div><p class="eyebrow">Highest-scoring meta-patterns</p><h2>Compact behavioural catalogue</h2></div>
+    <a href="{{ url_for('explorer.patterns', dataset=dashboard.dataset) }}">View all patterns</a>
+  </div>
+  <div class="pattern-card-grid">
+    {% for pattern in dashboard.patterns %}
+    <a class="pattern-card" href="{{ url_for('explorer.pattern_detail', dataset=dashboard.dataset, meta_pattern_id=pattern.meta_pattern_id) }}">
+      <small>{{ pattern.meta_pattern_id }}</small>
+      <strong>{{ pattern.readable_pattern }}</strong>
+      <span>{{ pattern.n_covered_value }} target trajectories · {{ "%.2f"|format(pattern.coverage_pct) }}% coverage</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
