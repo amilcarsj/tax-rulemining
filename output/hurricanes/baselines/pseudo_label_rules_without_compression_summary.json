@@ -1,0 +1,55 @@
+{
+  "baseline": "pseudo_label_rules_without_compression",
+  "dataset": {
+    "original_pair_column_count": 158,
+    "pair_column_count": 15,
+    "retained_same_depth_pair_count": 15,
+    "row_count": 2688,
+    "skipped_mixed_depth_pair_count": 65,
+    "skipped_out_of_depth_range_pair_count": 78
+  },
+  "generated_files": {
+    "pseudo_label_rule_coverage_without_compression.csv": "output/hurricanes/baselines/pseudo_label_rule_coverage_without_compression.csv",
+    "pseudo_label_rules_without_compression.csv": "output/hurricanes/baselines/pseudo_label_rules_without_compression.csv",
+    "pseudo_label_rules_without_compression_summary.json": "output/hurricanes/baselines/pseudo_label_rules_without_compression_summary.json"
+  },
+  "inputs": {
+    "step2_dir": "output/hurricanes/taxonomy_v2/step2_top_nodes"
+  },
+  "parameters": {
+    "compression": "none",
+    "intended_comparison": "Ablates semantic meta-pattern compression while keeping the same taxonomy-guided pseudo-label rule mining.",
+    "source": "Step 2 high_level_association_rules.csv",
+    "step2_parameters": {
+      "hybrid_items_excluded_from_antecedents": true,
+      "include_normal_targets": false,
+      "max_fp_growth_itemset_length": 3,
+      "max_high_level_rule_length": 2,
+      "max_node_depth": 1,
+      "min_confidence": 0.8,
+      "min_lift": 2.0,
+      "min_node_depth": 1,
+      "min_support_count": 20,
+      "min_support_ratio": 0.0,
+      "min_target_coverage": 0.0,
+      "min_target_prevalence_ratio": 0.02,
+      "mining_algorithm": "fp_growth_association_rules",
+      "same_depth_only": true,
+      "target_label_echoes_excluded_from_antecedents": false,
+      "target_label_scope": "uncommon_only"
+    }
+  },
+  "results": {
+    "antecedent_length_counts": {
+      "2": 205
+    },
+    "coverage_row_count": 7029,
+    "mean_confidence": 0.8667211224453322,
+    "mean_lift": 7.8218991838858685,
+    "mean_rule_support_count": 29.66829268292683,
+    "rule_count": 205,
+    "rules_per_semantic_meta_pattern": 6.833333333333333,
+    "semantic_meta_pattern_count_available_in_main_method": 30
+  },
+  "status": "completed"
+}

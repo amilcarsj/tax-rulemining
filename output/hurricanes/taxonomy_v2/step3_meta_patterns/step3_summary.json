@@ -1,0 +1,73 @@
+{
+  "generated_files": {
+    "meta_pattern_comparison_evidence.csv": "output/hurricanes/taxonomy_v2/step3_meta_patterns/meta_pattern_comparison_evidence.csv",
+    "meta_pattern_contrast_groups.csv": "output/hurricanes/taxonomy_v2/step3_meta_patterns/meta_pattern_contrast_groups.csv",
+    "meta_pattern_explanation_summary.csv": "output/hurricanes/taxonomy_v2/step3_meta_patterns/meta_pattern_explanation_summary.csv",
+    "meta_pattern_feature_differences.csv": "output/hurricanes/taxonomy_v2/step3_meta_patterns/meta_pattern_feature_differences.csv",
+    "meta_pattern_feature_summary.csv": "output/hurricanes/taxonomy_v2/step3_meta_patterns/meta_pattern_feature_summary.csv",
+    "step3_summary.json": "output/hurricanes/taxonomy_v2/step3_meta_patterns/step3_summary.json"
+  },
+  "inputs": {
+    "data": "datasets/hurricanes/hurricanes-traj-feats.csv",
+    "step1_dir": "output/hurricanes/taxonomy_v2/step1",
+    "step2_dir": "output/hurricanes/taxonomy_v2/step2_top_nodes",
+    "trajectory_id": "trajectory_id"
+  },
+  "parameters": {
+    "feature_comparison_groups": "antecedent_and_target",
+    "feature_distance": "robust_standardized_euclidean",
+    "fingerprint_pair_scope": "step2_retained_pairs",
+    "include_all_counterexamples": true,
+    "include_rule_level_outputs": false,
+    "matching_strategy": "all_real_counterexamples_sorted_by_minimum_remaining_fingerprint_label_mismatches_then_antecedent_feature_distance",
+    "meta_pattern_contrast_groups": [
+      {
+        "description": "Non-pattern trajectories that are closest to satisfying the meta-pattern, preferably exactly one missing uncommonness count away.",
+        "label": "Near miss",
+        "name": "near_miss"
+      },
+      {
+        "description": "Non-pattern trajectories matched to the target group by overall uncommon-label complexity.",
+        "label": "Matched non-pattern",
+        "name": "matched_non_pattern"
+      },
+      {
+        "description": "Non-pattern trajectories with no uncommon and no hybrid labels across the retained top-node comparisons, with a low-uncommonness fallback.",
+        "label": "Typical normal",
+        "name": "typical_normal"
+      }
+    ],
+    "meta_pattern_definition": "node-level uncommonness counts derived from Step 2 source rules and evaluated on Step 2 retained fingerprint pairs",
+    "rule_contrast_definition": {
+      "antecedent_only": "antecedent_satisfied_and_target_not_satisfied",
+      "neither": "antecedent_not_satisfied_and_target_not_satisfied",
+      "rule_positive": "antecedent_satisfied_and_target_satisfied",
+      "target_only": "antecedent_not_satisfied_and_target_satisfied"
+    },
+    "rule_contrast_groups": [
+      "rule_positive",
+      "antecedent_only",
+      "target_only",
+      "neither"
+    ]
+  },
+  "results": {
+    "available_rule_count": 205,
+    "contrast_feature_difference_row_count": 0,
+    "contrast_feature_summary_row_count": 0,
+    "contrast_group_row_count": 0,
+    "contrast_group_summary_row_count": 0,
+    "counterexample_pair_count": 0,
+    "feature_comparison_count": 0,
+    "meta_pattern_comparison_evidence_row_count": 900,
+    "meta_pattern_contrast_group_row_count": 34442,
+    "meta_pattern_count": 30,
+    "meta_pattern_explanation_row_count": 30,
+    "meta_pattern_feature_difference_row_count": 3120,
+    "meta_pattern_feature_summary_row_count": 4160,
+    "rule_level_output_rule_count": 0,
+    "rules_with_counterexamples": 0
+  },
+  "status": "completed",
+  "step": "step3"
+}

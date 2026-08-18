@@ -1,0 +1,46 @@
+{
+  "baseline": "flat_lof",
+  "dataset": {
+    "candidate_numeric_feature_count": 104,
+    "column_count": 106,
+    "row_count": 2688
+  },
+  "generated_files": {
+    "flat_lof_feature_metadata.csv": "output/hurricanes/baselines/flat_lof_feature_metadata.csv",
+    "flat_lof_scores.csv": "output/hurricanes/baselines/flat_lof_scores.csv",
+    "flat_lof_summary.json": "output/hurricanes/baselines/flat_lof_summary.json"
+  },
+  "inputs": {
+    "data": "datasets/hurricanes/hurricanes-traj-feats.csv",
+    "excluded_columns": [
+      "object_id"
+    ],
+    "trajectory_id": "trajectory_id"
+  },
+  "lof_strategy": {
+    "estimator": "sklearn.neighbors.LocalOutlierFactor",
+    "parameters": {
+      "contamination": "auto",
+      "metric": "euclidean",
+      "n_neighbors_rule": "if n_samples <= 6: n_samples - 1; else min(20, max(5, floor(sqrt(n_samples))))",
+      "novelty": false
+    },
+    "preprocessing": [
+      "select node feature subset",
+      "convert values to numeric",
+      "median imputation for missing values",
+      "drop constant features within node",
+      "scale features with RobustScaler"
+    ],
+    "score_outputs": {
+      "percentile_normalization": "scipy.stats.rankdata(method='average') scaled to [0, 1]",
+      "raw_lof": "-negative_outlier_factor_"
+    }
+  },
+  "results": {
+    "n_features_used": 103,
+    "n_neighbors": 20,
+    "score_row_count": 2688
+  },
+  "status": "completed"
+}

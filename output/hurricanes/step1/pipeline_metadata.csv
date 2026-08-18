@@ -1,0 +1,4 @@
+category,item,details
+constant_feature,point_count,node=Movement_variables
+constant_feature,point_count,node=Temporal
+constant_feature,point_count,node=Duration

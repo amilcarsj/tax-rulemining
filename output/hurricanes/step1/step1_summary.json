@@ -1,0 +1,70 @@
+{
+  "dataset": {
+    "column_count": 106,
+    "numeric_feature_count": 105,
+    "row_count": 2688
+  },
+  "generated_files": {
+    "node_feature_sets.csv": "output/hurricanes/step1/node_feature_sets.csv",
+    "node_lof_scores.csv": "output/hurricanes/step1/node_lof_scores.csv",
+    "pair_pseudo_labels.csv": "output/hurricanes/step1/pair_pseudo_labels.csv",
+    "pipeline_metadata.csv": "output/hurricanes/step1/pipeline_metadata.csv",
+    "step1_summary.json": "output/hurricanes/step1/step1_summary.json",
+    "taxonomy_pairs.csv": "output/hurricanes/step1/taxonomy_pairs.csv",
+    "trajectory_pseudo_labels.csv": "output/hurricanes/step1/trajectory_pseudo_labels.csv"
+  },
+  "inputs": {
+    "data": "datasets/hurricanes/hurricanes-traj-feats.csv",
+    "taxonomy": "datasets/hurricanes/hurricanes-taxonomy.json",
+    "trajectory_id": "trajectory_id"
+  },
+  "lof_strategy": {
+    "estimator": "sklearn.neighbors.LocalOutlierFactor",
+    "parameters": {
+      "contamination": "auto",
+      "metric": "euclidean",
+      "n_neighbors_rule": "if n_samples <= 6: n_samples - 1; else min(20, max(5, floor(sqrt(n_samples))))",
+      "novelty": false
+    },
+    "preprocessing": [
+      "select node feature subset",
+      "convert values to numeric",
+      "median imputation for missing values",
+      "drop constant features within node",
+      "scale features with RobustScaler"
+    ],
+    "score_outputs": {
+      "percentile_normalization": "scipy.stats.rankdata(method='average') scaled to [0, 1]",
+      "raw_lof": "-negative_outlier_factor_"
+    }
+  },
+  "results": {
+    "lof_scored_node_count": 18,
+    "lof_scored_nodes": [
+      "Movement_variables",
+      "Geometric",
+      "Kinematic",
+      "Spatial_Context",
+      "SpatioTemporal_Dynamics",
+      "Temporal",
+      "Acceleration",
+      "Curvature",
+      "Displacement",
+      "Duration",
+      "Extent",
+      "Indentation",
+      "Localization",
+      "Path_Evolution",
+      "Phase_Change",
+      "Sampling_Gaps",
+      "Sequence_Complexity",
+      "Speed"
+    ],
+    "metadata_event_count": 3,
+    "pseudo_label_row_count": 333312,
+    "usable_node_count": 18,
+    "valid_pair_count": 124
+  },
+  "status": "completed",
+  "step": "step1"
+}
