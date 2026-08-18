@@ -1,0 +1,194 @@
+{
+  "name": "Movement variables",
+  "children": [
+    {
+      "name": "Kinematic",
+      "children": [
+        {
+          "name": "Speed",
+          "features": [
+            "speed_0s",
+            "speed_mean",
+            "speed_meanse",
+            "speed_quant_min",
+            "speed_quant_05",
+            "speed_quant_10",
+            "speed_quant_25",
+            "speed_quant_median",
+            "speed_quant_75",
+            "speed_quant_90",
+            "speed_quant_95",
+            "speed_quant_max",
+            "speed_range",
+            "speed_sd",
+            "speed_vcoef",
+            "speed_mad",
+            "speed_iqr",
+            "speed_skew",
+            "speed_kurt"
+          ]
+        },
+        {
+          "name": "Acceleration",
+          "features": [
+            "acceleration_0s",
+            "acceleration_mean",
+            "acceleration_meanse",
+            "acceleration_quant_min",
+            "acceleration_quant_05",
+            "acceleration_quant_10",
+            "acceleration_quant_25",
+            "acceleration_quant_median",
+            "acceleration_quant_75",
+            "acceleration_quant_90",
+            "acceleration_quant_95",
+            "acceleration_quant_max",
+            "acceleration_range",
+            "acceleration_sd",
+            "acceleration_vcoef",
+            "acceleration_mad",
+            "acceleration_iqr",
+            "acceleration_skew",
+            "acceleration_kurt"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Geometric",
+      "children": [
+        {
+          "name": "Curvature",
+          "features": [
+            "distance_geometry_1_1",
+            "distance_geometry_2_1",
+            "distance_geometry_2_2",
+            "distance_geometry_3_1",
+            "distance_geometry_3_2",
+            "distance_geometry_3_3",
+            "distance_geometry_4_1",
+            "distance_geometry_4_2",
+            "distance_geometry_4_3",
+            "distance_geometry_4_4",
+            "distance_geometry_5_1",
+            "distance_geometry_5_2",
+            "distance_geometry_5_3",
+            "distance_geometry_5_4",
+            "distance_geometry_5_5"
+          ]
+        },
+        {
+          "name": "Indentation",
+          "features": [
+            "angles_0s",
+            "angles_mean",
+            "angles_meanse",
+            "angles_quant_min",
+            "angles_quant_05",
+            "angles_quant_10",
+            "angles_quant_25",
+            "angles_quant_median",
+            "angles_quant_75",
+            "angles_quant_90",
+            "angles_quant_95",
+            "angles_quant_max",
+            "angles_range",
+            "angles_sd",
+            "angles_vcoef",
+            "angles_mad",
+            "angles_iqr",
+            "angles_skew",
+            "angles_kurt"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Temporal",
+      "children": [
+        {
+          "name": "Duration",
+          "features": [
+            "point_count",
+            "duration_total_seconds"
+          ]
+        },
+        {
+          "name": "Sampling_Gaps",
+          "features": [
+            "sampling_gap_mean_seconds",
+            "sampling_gap_sd_seconds",
+            "sampling_gap_iqr_seconds",
+            "sampling_gap_cv"
+          ]
+        },
+        {
+          "name": "Phase_Change",
+          "features": [
+            "speed_mean_first_half",
+            "speed_mean_second_half",
+            "speed_mean_half_diff",
+            "acceleration_mean_first_half",
+            "acceleration_mean_second_half",
+            "acceleration_mean_half_diff"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spatial_Context",
+      "children": [
+        {
+          "name": "Extent",
+          "features": [
+            "bbox_lat_span_deg",
+            "bbox_lon_span_deg",
+            "bbox_height_m",
+            "bbox_width_m",
+            "bbox_diagonal_m",
+            "bbox_area_km2"
+          ]
+        },
+        {
+          "name": "Displacement",
+          "features": [
+            "path_length_m",
+            "net_displacement_m",
+            "directness_ratio"
+          ]
+        },
+        {
+          "name": "Localization",
+          "features": [
+            "mean_distance_to_centroid_m",
+            "median_distance_to_centroid_m",
+            "max_distance_to_centroid_m",
+            "radius_of_gyration_m"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SpatioTemporal_Dynamics",
+      "children": [
+        {
+          "name": "Path_Evolution",
+          "features": [
+            "speed_progress_slope",
+            "acceleration_progress_slope",
+            "angle_progress_slope"
+          ]
+        },
+        {
+          "name": "Sequence_Complexity",
+          "features": [
+            "relative_grid_unique_cells_3x3",
+            "relative_grid_entropy_3x3",
+            "relative_transition_entropy_3x3",
+            "relative_grid_revisit_ratio_3x3"
+          ]
+        }
+      ]
+    }
+  ]
+}
