@@ -1,0 +1,4 @@
+category,item,details
+constant_feature,point_count,node=Movement_variables
+constant_feature,point_count,node=Temporal_Sequential_Context
+constant_feature,point_count,node=Observation_Temporal_Support

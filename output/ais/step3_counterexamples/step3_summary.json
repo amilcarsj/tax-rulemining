@@ -1,0 +1,30 @@
+{
+  "generated_files": {
+    "counterexample_feature_summary.csv": "output/ais/step3_counterexamples/counterexample_feature_summary.csv",
+    "nearest_counterexample_feature_comparisons.csv": "output/ais/step3_counterexamples/nearest_counterexample_feature_comparisons.csv",
+    "nearest_real_counterexamples.csv": "output/ais/step3_counterexamples/nearest_real_counterexamples.csv",
+    "rule_counterexample_summary.csv": "output/ais/step3_counterexamples/rule_counterexample_summary.csv",
+    "step3_summary.json": "output/ais/step3_counterexamples/step3_summary.json"
+  },
+  "inputs": {
+    "data": "datasets/ais/ais-traj-feats.csv",
+    "step1_dir": "output/ais/step1",
+    "step2_dir": "output/ais/step2_association_refined",
+    "trajectory_id": "trajectory_id"
+  },
+  "parameters": {
+    "feature_comparison_groups": "antecedent_and_target",
+    "feature_distance": "robust_standardized_euclidean",
+    "fingerprint_pair_scope": "same_depth_only",
+    "matching_strategy": "minimum_remaining_fingerprint_label_mismatches_then_antecedent_feature_distance",
+    "n_neighbors": 1
+  },
+  "results": {
+    "feature_comparison_count": 22887,
+    "neighbor_pair_count": 593,
+    "rule_count": 9,
+    "rules_with_counterexamples": 9
+  },
+  "status": "completed",
+  "step": "step3"
+}

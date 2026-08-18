@@ -1,0 +1,4 @@
+dataset,n_trajectories,flat_lof_scores,flat_lof_features_used,raw_fp_growth_max_itemset_length,raw_frequent_itemsets,raw_association_rules,raw_rule_output_limit_reached,pseudo_label_rules_without_compression,semantic_meta_patterns_main_method,rules_per_semantic_meta_pattern,pseudo_mean_confidence,pseudo_mean_lift
+fox,1551,1551,100,2,33079,3433,False,15,8,1.875,0.8908251506947159,8.093606884084235
+ais,4670,4670,103,2,25689,8099,False,293,30,9.766666666666667,0.8610201013628701,7.517494539473525
+hurricanes,2688,2688,103,2,28641,3100,False,205,30,6.833333333333333,0.8667211224453322,7.8218991838858685
