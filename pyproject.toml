@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tax-rulemining"
+version = "0.1.0"
+description = "Taxonomy-guided movement outlier scoring and pattern mining pipeline."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "Flask>=3.0",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+]
+
+[project.scripts]
+tax-rulemining = "cli.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
