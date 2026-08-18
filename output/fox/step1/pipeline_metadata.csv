@@ -1,0 +1,13 @@
+category,item,details
+constant_feature,acceleration_0s,node=Movement_variables
+constant_feature,angles_0s,node=Movement_variables
+constant_feature,point_count,node=Movement_variables
+constant_feature,speed_0s,node=Movement_variables
+constant_feature,angles_0s,node=Geometric
+constant_feature,acceleration_0s,node=Kinematic
+constant_feature,speed_0s,node=Kinematic
+constant_feature,point_count,node=Temporal
+constant_feature,acceleration_0s,node=Acceleration
+constant_feature,point_count,node=Duration
+constant_feature,angles_0s,node=Indentation
+constant_feature,speed_0s,node=Speed

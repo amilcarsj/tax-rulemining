@@ -1,0 +1,64 @@
+{
+  "baseline_suite": "flat_lof_raw_association_and_uncompressed_pseudo_label_rules",
+  "dataset": {
+    "column_count": 106,
+    "row_count": 1551,
+    "selected_numeric_feature_count": 104
+  },
+  "generated_files": {
+    "baseline_summary.json": "output/fox/baselines/baseline_summary.json",
+    "flat_lof_feature_metadata.csv": "output/fox/baselines/flat_lof_feature_metadata.csv",
+    "flat_lof_scores.csv": "output/fox/baselines/flat_lof_scores.csv",
+    "flat_lof_summary.json": "output/fox/baselines/flat_lof_summary.json",
+    "pseudo_label_rule_coverage_without_compression.csv": "output/fox/baselines/pseudo_label_rule_coverage_without_compression.csv",
+    "pseudo_label_rules_without_compression.csv": "output/fox/baselines/pseudo_label_rules_without_compression.csv",
+    "pseudo_label_rules_without_compression_summary.json": "output/fox/baselines/pseudo_label_rules_without_compression_summary.json",
+    "raw_association_rules.csv": "output/fox/baselines/raw_association_rules.csv",
+    "raw_association_summary.json": "output/fox/baselines/raw_association_summary.json",
+    "raw_feature_bins.csv": "output/fox/baselines/raw_feature_bins.csv",
+    "raw_feature_discretization_ranges.csv": "output/fox/baselines/raw_feature_discretization_ranges.csv",
+    "raw_feature_transactions.csv": "output/fox/baselines/raw_feature_transactions.csv",
+    "raw_frequent_itemsets.csv": "output/fox/baselines/raw_frequent_itemsets.csv"
+  },
+  "inputs": {
+    "data": "datasets/fox/fox-traj-feats.csv",
+    "excluded_columns": [
+      "object_id"
+    ],
+    "step2_dir": "output/fox/taxonomy_v2/step2_top_nodes",
+    "trajectory_id": "trajectory_id"
+  },
+  "results": {
+    "flat_lof": {
+      "n_features_used": 100,
+      "n_neighbors": 20,
+      "score_row_count": 1551
+    },
+    "pseudo_label_rules_without_compression": {
+      "antecedent_length_counts": {
+        "2": 15
+      },
+      "coverage_row_count": 361,
+      "mean_confidence": 0.8908251506947159,
+      "mean_lift": 8.093606884084235,
+      "mean_rule_support_count": 21.4,
+      "rule_count": 15,
+      "rules_per_semantic_meta_pattern": 1.875,
+      "semantic_meta_pattern_count_available_in_main_method": 8
+    },
+    "raw_association_rules": {
+      "association_rule_count": 3433,
+      "candidate_rule_count": 65560,
+      "discretized_feature_count": 100,
+      "frequent_itemset_count": 33079,
+      "itemset_length_counts": {
+        "1": 299,
+        "2": 32780
+      },
+      "passing_rule_count": 3433,
+      "rule_output_limit_reached": false,
+      "transaction_count": 1551
+    }
+  },
+  "status": "completed"
+}

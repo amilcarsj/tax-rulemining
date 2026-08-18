@@ -1,0 +1,50 @@
+{
+  "baseline": "raw_association_rules",
+  "dataset": {
+    "candidate_numeric_feature_count": 104,
+    "column_count": 106,
+    "row_count": 1551
+  },
+  "generated_files": {
+    "raw_association_rules.csv": "output/fox/baselines/raw_association_rules.csv",
+    "raw_association_summary.json": "output/fox/baselines/raw_association_summary.json",
+    "raw_feature_bins.csv": "output/fox/baselines/raw_feature_bins.csv",
+    "raw_feature_discretization_ranges.csv": "output/fox/baselines/raw_feature_discretization_ranges.csv",
+    "raw_feature_transactions.csv": "output/fox/baselines/raw_feature_transactions.csv",
+    "raw_frequent_itemsets.csv": "output/fox/baselines/raw_frequent_itemsets.csv"
+  },
+  "inputs": {
+    "data": "datasets/fox/fox-traj-feats.csv",
+    "excluded_columns": [
+      "object_id"
+    ],
+    "trajectory_id": "trajectory_id"
+  },
+  "parameters": {
+    "discretization": "tertile bins over non-missing numeric values",
+    "frequent_itemset_algorithm": "fp_growth",
+    "max_itemset_length": 2,
+    "max_rules": 50000,
+    "min_antecedent_length": 1,
+    "min_confidence": 0.6,
+    "min_lift": 1.2,
+    "min_support_count": 20,
+    "min_support_count_used": 156,
+    "min_support_ratio": 0.1,
+    "same_feature_item_conflicts": "disallowed by construction"
+  },
+  "results": {
+    "association_rule_count": 3433,
+    "candidate_rule_count": 65560,
+    "discretized_feature_count": 100,
+    "frequent_itemset_count": 33079,
+    "itemset_length_counts": {
+      "1": 299,
+      "2": 32780
+    },
+    "passing_rule_count": 3433,
+    "rule_output_limit_reached": false,
+    "transaction_count": 1551
+  },
+  "status": "completed"
+}

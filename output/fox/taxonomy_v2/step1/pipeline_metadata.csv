@@ -1,0 +1,13 @@
+category,item,details
+constant_feature,acceleration_0s,node=Movement_variables
+constant_feature,angles_0s,node=Movement_variables
+constant_feature,point_count,node=Movement_variables
+constant_feature,speed_0s,node=Movement_variables
+constant_feature,acceleration_0s,node=Acceleration_Dynamics
+constant_feature,speed_0s,node=Speed_Dynamics
+constant_feature,point_count,node=Temporal_Sequential_Context
+constant_feature,angles_0s,node=Turning_Dynamics
+constant_feature,acceleration_0s,node=Acceleration_Variability_Shape
+constant_feature,point_count,node=Observation_Temporal_Support
+constant_feature,speed_0s,node=Speed_Variability_Shape
+constant_feature,angles_0s,node=Turning_Variability_Shape

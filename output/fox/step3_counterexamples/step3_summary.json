@@ -1,0 +1,50 @@
+{
+  "generated_files": {
+    "all_counterexample_feature_comparisons.csv": "output/fox/step3_counterexamples/all_counterexample_feature_comparisons.csv",
+    "all_real_counterexamples.csv": "output/fox/step3_counterexamples/all_real_counterexamples.csv",
+    "counterexample_feature_summary.csv": "output/fox/step3_counterexamples/counterexample_feature_summary.csv",
+    "rule_contrast_feature_differences.csv": "output/fox/step3_counterexamples/rule_contrast_feature_differences.csv",
+    "rule_contrast_feature_summary.csv": "output/fox/step3_counterexamples/rule_contrast_feature_summary.csv",
+    "rule_contrast_group_summary.csv": "output/fox/step3_counterexamples/rule_contrast_group_summary.csv",
+    "rule_contrast_groups.csv": "output/fox/step3_counterexamples/rule_contrast_groups.csv",
+    "rule_counterexample_summary.csv": "output/fox/step3_counterexamples/rule_counterexample_summary.csv",
+    "step3_summary.json": "output/fox/step3_counterexamples/step3_summary.json"
+  },
+  "inputs": {
+    "data": "datasets/fox/fox-traj-feats.csv",
+    "step1_dir": "output/fox/step1",
+    "step2_dir": "output/fox/step2_association_refined",
+    "trajectory_id": "trajectory_id"
+  },
+  "parameters": {
+    "feature_comparison_groups": "antecedent_and_target",
+    "feature_distance": "robust_standardized_euclidean",
+    "fingerprint_pair_scope": "same_depth_only",
+    "include_all_counterexamples": true,
+    "matching_strategy": "all_real_counterexamples_sorted_by_minimum_remaining_fingerprint_label_mismatches_then_antecedent_feature_distance",
+    "rule_contrast_definition": {
+      "antecedent_only": "antecedent_satisfied_and_target_not_satisfied",
+      "neither": "antecedent_not_satisfied_and_target_not_satisfied",
+      "rule_positive": "antecedent_satisfied_and_target_satisfied",
+      "target_only": "antecedent_not_satisfied_and_target_satisfied"
+    },
+    "rule_contrast_groups": [
+      "rule_positive",
+      "antecedent_only",
+      "target_only",
+      "neither"
+    ]
+  },
+  "results": {
+    "contrast_feature_difference_row_count": 2271,
+    "contrast_feature_summary_row_count": 3028,
+    "contrast_group_row_count": 23265,
+    "contrast_group_summary_row_count": 60,
+    "counterexample_pair_count": 1242,
+    "feature_comparison_count": 63659,
+    "rule_count": 15,
+    "rules_with_counterexamples": 15
+  },
+  "status": "completed",
+  "step": "step3"
+}
